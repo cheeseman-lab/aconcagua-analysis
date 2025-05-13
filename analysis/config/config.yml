@@ -1,0 +1,223 @@
+
+# BrieFlow configuration file
+
+# Defining samples:
+#   Samples must be defined in the following TSV files with columns:
+#     sbs_samples.tsv: sample_fp, well, tile, cycle
+#     phenotype_samples.tsv: sample_fp, well, tile
+
+# Paths:
+#   Paths are resolved relative to the directory the workflow is run from
+
+# Parameters:
+all:
+  root_fp: analysis_root/
+preprocess:
+  phenotype_channel_order:
+  - DAPI_1x1-GFP_1x1
+  - GFP_1x1
+  - A594_1x1
+  - AF750_1x1
+  phenotype_channel_order_flip: null
+  phenotype_combo_fp: config/phenotype_combo.tsv
+  phenotype_round_order:
+  - 1
+  - 2
+  phenotype_samples_fp: config/phenotype_samples.tsv
+  sample_fraction: 1
+  sbs_channel_order:
+  - CY3_30p_545
+  - A594_30p
+  - CY5_30p
+  - CY7_30p
+  sbs_channel_order_flip: null
+  sbs_combo_fp: config/sbs_combo.tsv
+  sbs_samples_fp: config/sbs_samples.tsv
+sbs:
+  alignment_method: sbs_mean
+  barcode_col: sgRNA
+  bases:
+  - G
+  - T
+  - A
+  - C
+  call_reads_method: median
+  cell_diameter: 18.847647942942654
+  cellpose_model: cyto3
+  cellprob_threshold: 0
+  cyto_index: 4
+  dapi_index: 0
+  df_design_path: config/pool10_design.tsv
+  error_correct: false
+  flow_threshold: 0.4
+  gpu: false
+  keep_extras: true
+  max_filter_width: 3
+  mode: null
+  nuclei_diameter: 9.440697438826296
+  q_min: 0
+  reconcile: contained_in_cells
+  segmentation_cycle_index: 10
+  spot_detection_method: standard
+  threshold_peaks: 350
+phenotype:
+  align: true
+  alignments:
+    1:
+      remove_channel: false
+      riders:
+      - 3
+      source: 2
+      target: 0
+    2:
+      steps:
+      - remove_channel: false
+        riders: []
+        source: 2
+        target: 0
+      - remove_channel: source
+        riders:
+        - 4
+        source: 3
+        target: 2
+    3:
+      remove_channel: false
+      riders:
+      - 3
+      source: 2
+      target: 0
+    4:
+      steps:
+      - remove_channel: false
+        riders:
+        - 3
+        source: 2
+        target: 0
+      - remove_channel: target
+        riders: []
+        source: 4
+        target: 1
+    5:
+      remove_channel: false
+      riders:
+      - 3
+      source: 2
+      target: 0
+    6:
+      steps:
+      - remove_channel: false
+        riders:
+        - 3
+        source: 2
+        target: 0
+      - remove_channel: target
+        riders: []
+        source: 4
+        target: 1
+    7:
+      steps:
+      - remove_channel: false
+        riders:
+        - 3
+        source: 2
+        target: 0
+      - remove_channel: target
+        riders: []
+        source: 4
+        target: 1
+    8:
+      steps:
+      - remove_channel: false
+        riders:
+        - 3
+        source: 2
+        target: 0
+      - remove_channel: target
+        riders: []
+        source: 4
+        target: 1
+  cell_diameter: 72.27354112912391
+  cellpose_model: cyto3
+  cellprob_threshold: 0
+  channel_names:
+  - DAPI
+  - TUBULIN
+  - GH2AX
+  - PHALLOIDIN
+  cyto_index: 3
+  dapi_index: 0
+  flow_threshold: 0.4
+  foci_channel: 2
+  gpu: false
+  method: cellpose
+  mode: null
+  nuclei_diameter: 41.25147987644627
+  reconcile: contained_in_cells
+merge:
+  det_range:
+  - 0.06
+  - 0.065
+  initial_sites:
+  - - 1
+    - 1
+  - - 186
+    - 50
+  - - 548
+    - 150
+  - - 656
+    - 174
+  - - 887
+    - 225
+  - - 1279
+    - 331
+  merge_combo_fp: config/merge_combo.tsv
+  ph_metadata_channel: null
+  sbs_metadata_channel: null
+  sbs_metadata_cycle: 1
+  score: 0.1
+  threshold: 2
+aggregate:
+  agg_method: median
+  aggregate_combo_fp: config/aggregate_combo.tsv
+  batch_cols:
+  - plate
+  - well
+  classifier_path: config/binary_xgb_none_model.dill
+  collapse_cols:
+  - sgRNA_0
+  - gene_symbol_0
+  contamination: 0.01
+  control_key: nontargeting
+  drop_cols_threshold: 0.05
+  drop_rows_threshold: 0.01
+  filter_queries:
+  - mapped_single_gene == 'True'
+  impute: true
+  metadata_cols_fp: config/cell_data_metadata_cols.tsv
+  num_align_batches: 1
+  perturbation_id_col: sgRNA_0
+  perturbation_name_col: gene_symbol_0
+  variance_or_ncomp: 0.99
+cluster:
+  cluster_combo_fp: config/cluster_combo.tsv
+  corum_group_benchmark_fp: config/benchmark_clusters/corum_group_benchmark.tsv
+  kegg_group_benchmark_fp: config/benchmark_clusters/kegg_group_benchmark.tsv
+  leiden_resolutions:
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  min_cell_cutoffs:
+    Interphase: 3
+    Mitotic: 0
+    all: 3
+  phate_distance_metric: cosine
+  string_pair_benchmark_fp: config/benchmark_clusters/string_pair_benchmark.tsv
+  uniprot_data_fp: config/benchmark_clusters/uniprot_data.tsv

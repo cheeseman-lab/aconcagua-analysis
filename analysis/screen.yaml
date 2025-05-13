@@ -1,0 +1,56 @@
+# Screen Information
+experiment:
+  id: "aconcagua"  # Experiment identifier
+  notebook_entries: "NA, reanalysis of published data"  # Links or references to lab notebook entries
+  dates: 
+    start: "2020"
+    end: "2021"
+
+# Cellular Conditions
+cellular:
+  cell_line: "HeLa"
+  imaging_timepoint: "78 hours after induction"
+  treatment:
+    summary: "Perturbed with 5072 essential genes"
+    details: "MISSING"  # Detailed protocol or conditions
+  plates: "6"  # Number of plates
+  wells_per_plate: "6"  # Number of wells per plate
+
+# Sequencing by Synthesis (SBS)
+sbs:
+  cycles: "11"  # Number of cycles
+  cycle_order: "GTAC"  # Order of cycles
+  background_channel: "C, cycle 11"  # Suggested background channel
+  library_details:
+    number_of_genes: "5072"
+    guides_per_gene: "4"
+    other_information: "NA"
+
+# Phenotype (PH) Steps
+phenotype:
+  background_channel_cell: "Phalloidin"  # For cell segmentation
+  background_channel_body: "MISSING"  # For body (e.g. parasite) segmentation
+  
+  # Rounds of staining/imaging (all stains in one round)
+  rounds:
+    - round_number: 1
+      stains:
+        - name: "DAPI"
+          marker_of: "Nuclei"
+          channel: "DAPI"
+        - name: "Tubulin antibody"
+          marker_of: "Cytoskeleton"
+          channel: "TUBULIN"
+        - name: "gh2ax antibody"
+          marker_of: "DNA damage"
+          channel: "GH2AX"
+        - name: "Phalloidin"
+          marker_of: "Actin cytoskeleton"
+          channel: "PHALLOIDIN"
+
+# Data Generated
+data:
+  storage_format: "MISSING"  # e.g., .nd2, .tiff
+  location: "/lab/barcheese01/aconcagua"  # Base path for data storage
+  
+  notes: "Reanalysis of published dataset: The phenotypic landscape of essential human genes (Funk et al.), Cell, 2022"
